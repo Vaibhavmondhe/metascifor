@@ -1,0 +1,44 @@
+{% extends 'builder/base.html' %}
+
+{% block content %}
+<div class="text-center mb-5">
+    <div class="display-4 mb-3">Welcome to Resume Builder!</div>
+    <p class="lead mb-4">Create your professional resume in just a few minutes</p>
+    <a href="{% url 'create_resume' %}" class="btn btn-success btn-lg">Create New Resume</a>
+</div>
+
+{% if resumes %}
+    <div class="row">
+        {% for resume in resumes %}
+            <div class="col-md-6 mb-4">
+                <div class="card resume-card">
+                    <div class="card-header py-3">
+                        <h5 class="mb-0">{{ resume.name }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2">Email: {{ resume.email }}</li>
+                            <li class="mb-2">Phone: {{ resume.phone }}</li>
+                            <li>Education: {{ resume.get_education_level_display }}</li>
+                        </ul>
+                        <div class="d-flex gap-2">
+                            <a href="{% url 'view_resume' resume.id %}" class="btn btn-success flex-grow-1">View</a>
+                            <a href="{% url 'edit_resume' resume.id %}" class="btn btn-outline-success flex-grow-1">Edit</a>
+                            <a href="{% url 'delete_resume' resume.id %}" class="btn btn-outline-danger" 
+                               onclick="return confirm('Are you sure you want to delete this resume?')">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="card">
+        <div class="card-body text-center py-5">
+            <h3 class="mb-3">No Resumes Yet</h3>
+            <p class="text-muted mb-4">Start building your professional resume today!</p>
+            <a href="{% url 'create_resume' %}" class="btn btn-success btn-lg">Create Your First Resume</a>
+        </div>
+    </div>
+{% endif %}
+{% endblock %}

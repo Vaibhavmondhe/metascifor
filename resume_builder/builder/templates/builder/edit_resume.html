@@ -1,0 +1,204 @@
+{% extends 'builder/base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Edit Resume</h2>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            
+            <h3 class="mb-3">Personal Information</h3>
+            <div class="mb-3">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ resume.name }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" value="{{ resume.email }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <input type="tel" class="form-control" id="phone" name="phone" value="{{ resume.phone }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <textarea class="form-control" id="address" name="address" rows="2" required>{{ resume.address }}</textarea>
+            </div>
+
+            <h3 class="mb-3">Online Presence</h3>
+            <div class="mb-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">LinkedIn Profile</label>
+                        <input type="text" class="form-control" name="linkedin" value="{{ resume.linkedin }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="github" class="form-label">GitHub Profile URL</label>
+                        <input type="url" class="form-control" id="github" name="github" value="{{ resume.github }}">
+                    </div>
+                </div>
+                <div class="col-12">
+                    <label for="website" class="form-label">Personal Website URL</label>
+                    <input type="url" class="form-control" id="website" name="website" value="{{ resume.website }}">
+                </div>
+            </div>
+
+            <h3 class="mb-3">Professional Summary</h3>
+            <div class="mb-3">
+                <label for="objective" class="form-label">Career Objective</label>
+                <textarea class="form-control" id="objective" name="objective" rows="3" required>{{ resume.objective }}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="summary" class="form-label">Professional Summary</label>
+                <textarea class="form-control" id="summary" name="summary" rows="4" required>{{ resume.summary }}</textarea>
+                <div class="form-text">Highlight your key achievements, skills, and experience.</div>
+            </div>
+
+            <h3 class="mb-3">Education</h3>
+            <div class="education-form mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="education-institution" class="form-label">Institution</label>
+                            <input type="text" class="form-control" id="education-institution" name="education-institution">
+                        </div>
+                        <div class="mb-3">
+                            <label for="education-degree" class="form-label">Degree</label>
+                            <input type="text" class="form-control" id="education-degree" name="education-degree">
+                        </div>
+                        <div class="mb-3">
+                            <label for="education-field" class="form-label">Field of Study</label>
+                            <input type="text" class="form-control" id="education-field" name="education-field">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="education-year" class="form-label">Graduation Year</label>
+                                <input type="number" class="form-control" id="education-year" name="education-year">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="education-gpa" class="form-label">GPA</label>
+                                <input type="number" step="0.01" class="form-control" id="education-gpa" name="education-gpa">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="education-achievements" class="form-label">Achievements</label>
+                            <textarea class="form-control" id="education-achievements" name="education-achievements" rows="2"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="mb-3">Experience</h3>
+            <div class="experience-form mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="experience-company" class="form-label">Company</label>
+                            <input type="text" class="form-control" id="experience-company" name="experience-company">
+                        </div>
+                        <div class="mb-3">
+                            <label for="experience-position" class="form-label">Position</label>
+                            <input type="text" class="form-control" id="experience-position" name="experience-position">
+                        </div>
+                        <div class="mb-3">
+                            <label for="experience-location" class="form-label">Location</label>
+                            <input type="text" class="form-control" id="experience-location" name="experience-location">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="experience-start" class="form-label">Start Date</label>
+                                <input type="date" class="form-control" id="experience-start" name="experience-start">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="experience-end" class="form-label">End Date</label>
+                                <input type="date" class="form-control" id="experience-end" name="experience-end">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="experience-description" class="form-label">Description</label>
+                            <textarea class="form-control" id="experience-description" name="experience-description" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="experience-achievements" class="form-label">Key Achievements</label>
+                            <textarea class="form-control" id="experience-achievements" name="experience-achievements" rows="2"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="mb-3">Projects</h3>
+            <div class="project-form mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="project-title" class="form-label">Project Title</label>
+                            <input type="text" class="form-control" id="project-title" name="project-title">
+                        </div>
+                        <div class="mb-3">
+                            <label for="project-description" class="form-label">Description</label>
+                            <textarea class="form-control" id="project-description" name="project-description" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="project-technologies" class="form-label">Technologies Used</label>
+                            <input type="text" class="form-control" id="project-technologies" name="project-technologies">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="project-start" class="form-label">Start Date</label>
+                                <input type="date" class="form-control" id="project-start" name="project-start">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="project-end" class="form-label">End Date</label>
+                                <input type="date" class="form-control" id="project-end" name="project-end">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="project-url" class="form-label">Project URL</label>
+                            <input type="url" class="form-control" id="project-url" name="project-url">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="mb-3">Certifications</h3>
+            <div class="certification-form mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="certification-name" class="form-label">Certification Name</label>
+                            <input type="text" class="form-control" id="certification-name" name="certification-name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="certification-org" class="form-label">Issuing Organization</label>
+                            <input type="text" class="form-control" id="certification-org" name="certification-org">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="certification-issue-date" class="form-label">Issue Date</label>
+                                <input type="date" class="form-control" id="certification-issue-date" name="certification-issue-date">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="certification-expiry-date" class="form-label">Expiry Date</label>
+                                <input type="date" class="form-control" id="certification-expiry-date" name="certification-expiry-date">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="certification-id" class="form-label">Credential ID</label>
+                            <input type="text" class="form-control" id="certification-id" name="certification-id">
+                        </div>
+                        <div class="mb-3">
+                            <label for="certification-url" class="form-label">Credential URL</label>
+                            <input type="url" class="form-control" id="certification-url" name="certification-url">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="{% url 'view_resume' resume.id %}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

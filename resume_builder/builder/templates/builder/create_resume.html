@@ -1,0 +1,80 @@
+{% extends 'builder/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-0">Create New Resume</h3>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="mb-4">
+                        <h4 class="section-header">Personal Information</h4>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-control" name="name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" name="email" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Phone</label>
+                                <input type="tel" class="form-control" name="phone" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">LinkedIn Profile</label>
+                                <input type="text" class="form-control" name="linkedin">
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Address</label>
+                                <textarea class="form-control" name="address" rows="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4 class="section-header">Education</h4>
+                        <div class="mb-3">
+                            <label class="form-label">Highest Education Level</label>
+                            <select class="form-select" name="education_level" required>
+                                <option value="">Choose your highest education level</option>
+                                <option value="high_school">High School</option>
+                                <option value="bachelors">Bachelor's Degree</option>
+                                <option value="masters">Master's Degree</option>
+                                <option value="phd">Ph.D.</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4 class="section-header">Career Objective</h4>
+                        <div class="mb-3">
+                            <label class="form-label">What are your career goals?</label>
+                            <textarea class="form-control" name="objective" rows="3" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4 class="section-header">Professional Summary</h4>
+                        <div class="mb-3">
+                            <label class="form-label">Tell us about your professional background</label>
+                            <textarea class="form-control" name="summary" rows="4" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-success">Create Resume</button>
+                        <a href="{% url 'home' %}" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
