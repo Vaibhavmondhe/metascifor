@@ -1,0 +1,77 @@
+{% extends 'hostel_app/base.html' %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col">
+        <h2 class="mb-3">Student Directory</h2>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Name</th>
+                                <th>Roll Number</th>
+                                <th>Room Number</th>
+                                <th>Phone</th>
+                                <th>Check-in Date</th>
+                                <th>Fee Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for student in students %}
+                            <tr>
+                                <td>{{ student.name }}</td>
+                                <td>{{ student.roll_number }}</td>
+                                <td>{{ student.room_number }}</td>
+                                <td>{{ student.phone }}</td>
+                                <td>{{ student.check_in_date }}</td>
+                                <td>
+                                    {% if student.fee_status %}
+                                        <span class="badge bg-success">Paid</span>
+                                    {% else %}
+                                        <span class="badge bg-danger">Pending</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a href="{% url 'update_fee_status' student.id %}" 
+                                           class="btn btn-sm {% if student.fee_status %}btn-warning{% else %}btn-success{% endif %}">
+                                            {% if student.fee_status %}
+                                                Mark Unpaid
+                                            {% else %}
+                                                Mark Paid
+                                            {% endif %}
+                                        </a>
+                                        <a href="{% url 'update_student' student.id %}" class="btn btn-sm btn-primary">
+                                            Edit
+                                        </a>
+                                        <form method="post" action="{% url 'delete_student' student.id %}" style="display: inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="7" class="text-center">No students registered yet.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col text-end">
+        <a href="{% url 'add_student' %}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Add New Student
+        </a>
+    </div>
+</div>
+{% endblock %}

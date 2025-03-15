@@ -1,0 +1,98 @@
+{% extends 'hostel_app/base.html' %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Welcome Section -->
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="display-4 mb-3">Welcome to Hostel Management</h1>
+            <p class="lead text-muted">Manage your hostel dashboard.</p>
+        </div>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-4 mb-3">
+            <div class="card bg-primary text-white h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Total Students</h5>
+                    <h2 class="display-4">{{ total_students }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card bg-success text-white h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Fees Paid</h5>
+                    <h2 class="display-4">{{ paid_fees }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card bg-warning text-dark h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Pending Fees</h5>
+                    <h2 class="display-4">{{ pending_fees }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Students -->
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Recent Check-ins</h5>
+                    <a href="{% url 'student_list' %}" class="btn btn-sm btn-primary">View All Students</a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Room</th>
+                                    <th>Check-in Date</th>
+                                    <th>Fee Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for student in recent_students %}
+                                <tr>
+                                    <td>{{ student.name }}</td>
+                                    <td>{{ student.room_number }}</td>
+                                    <td>{{ student.check_in_date }}</td>
+                                    <td>
+                                        {% if student.fee_status %}
+                                            <span class="badge bg-success">Paid</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">Pending</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="4" class="text-center">No students registered yet.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mt-4">
+        <div class="col">
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="{% url 'add_student' %}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add New Student
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
